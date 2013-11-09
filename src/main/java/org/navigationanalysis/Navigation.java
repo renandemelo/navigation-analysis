@@ -9,18 +9,13 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 public class Navigation {
-	
-	public ArrayList<Packet> getPackets() {
-		return packets;
-	}
 
 	private ArrayList<Packet> packets = new ArrayList<Packet>();
 	
 	private HashMap<String,Long> candidates = new HashMap<String, Long>();
 	
-	public Navigation() throws IOException {	
-		String fileName = System.getProperty("navigation-file") != null? System.getProperty("navigation-file"): "navigation.csv";
-		BufferedReader reader = new BufferedReader(new FileReader(fileName));	
+	public Navigation() throws IOException {
+		BufferedReader reader = new WireSharkHelper().getCSVReader();	
 		ArrayList<Packet> tempPackets = new ArrayList<Packet>();
 		while(true){
 			String line = reader.readLine();
@@ -40,6 +35,10 @@ public class Navigation {
 				packets.add(p);
 		}
 		reader.close();
+	}
+	
+	public ArrayList<Packet> getPackets() {
+		return packets;
 	}
 
 	private void count(String... ips) {
@@ -61,6 +60,26 @@ public class Navigation {
 			}
 		}
 		return chosen.getKey();
+	}
+
+	public long[] getUploadBytesPerMinute(){
+		return getBytesPerSecond(true);
+	}
+
+	public long[] getDownloadBytesPerMinute(){
+		return getBytesPerSecond(false);
+	}
+	
+	public long[] getBytesPerSecond(Boolean fromClient) {
+		Packet last = packets.get(packets.size()-1);
+		long[] upload = new long[(int) Math.ceil(last.getMinute())];		
+		for (Packet packet : packets) {
+			if(packet.isFromClient() == fromClient){
+				int index = (int) packet.getMinute();
+				upload[index] += packet.getSize();	
+			}
+		}
+		return upload;
 	}
 
 }

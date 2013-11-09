@@ -1,5 +1,7 @@
 package org.navigationanalysis;
 
+import java.math.BigDecimal;
+
 public class Packet {
 
 	String id;
@@ -7,6 +9,7 @@ public class Packet {
 	Integer size;
 	private String localIP;
 	private String remoteIP;
+	private Long time;
 	
 	public Packet(String line) {
 		String[] split = line.split(",");
@@ -14,6 +17,7 @@ public class Packet {
 		localIP = split[4];
 		remoteIP = split[5];
 		size = Integer.valueOf(split[2]);
+		time = new BigDecimal(split[3]).multiply(new BigDecimal(1000)).longValue();
 	}	
 
 	public void setFromClient(String clientIP){
@@ -21,6 +25,10 @@ public class Packet {
 		clientIP = null;
 		remoteIP = null;
 	}
+	public Long getTime() {
+		return time;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -40,6 +48,14 @@ public class Packet {
 
 	public Integer getSize() {
 		return size;
+	}
+
+	public double getMinute() {
+		return getSecond()/60;
+	}
+
+	private double getSecond() {
+		return time/1000.0;
 	}
 
 	

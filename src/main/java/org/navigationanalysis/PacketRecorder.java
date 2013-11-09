@@ -51,6 +51,8 @@ public class PacketRecorder{
 				Registry r = registries.poll();
 				writer.append(r.getPacket().getId() + "," + r.getTime());
 				writer.newLine();
+				writer.flush();
+				fileWriter.flush();
 			}
 			if(stop){
 				timer.cancel();

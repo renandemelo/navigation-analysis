@@ -5,32 +5,41 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Properties;
 
 public class Tracker {
 
-	private Side side;
+	private Side mySide;
 	private InputStream inputStream;
 	private OutputStream outputStream;
 	private Navigation navigation;
 	private PacketRecorder packetRecorder;
+	private Long initial;
+	private boolean realTime;
 
 	public Tracker(Side side, InputStream inputStream,
 			OutputStream outputStream, Navigation nav) {
-		this.side = side;
+		this.mySide = side;
 		this.inputStream = inputStream;
 		this.outputStream = outputStream;
 		this.navigation = nav;
-		packetRecorder = new PacketRecorder();		
+		packetRecorder = new PacketRecorder();	
+		realTime = System.getProperty("realTime") != null?Boolean.getBoolean(System.getProperty("realTime")): true;
 	}
 
 	public void track(Socket socket) {
+		initial = System.currentTimeMillis();
 		try {
 			packetRecorder.init(socket);
 			ArrayList<Packet> packets = navigation.getPackets();
 			for (Packet p : packets) {
-				boolean needToSend = ((side == Side.CLIENT && p.isFromClient()) || (side == Side.SERVER && !p
-						.isFromClient()));
+				boolean needToSend = ((iAm(Side.CLIENT) && p.isFromClient()) || (iAm(Side.SERVER) && !p.isFromClient()));
 				if (needToSend) {
+					Long elapsedTime = System.currentTimeMillis() - initial;
+					Long timeDiff = p.getTime() - elapsedTime;
+					if(realTime &&  timeDiff > 0){
+						try {Thread.sleep(timeDiff);} catch (InterruptedException e) {}
+					}
 					System.out.println("Sending packet " + p.getId() + " with "+ p.getSize() + " bytes");
 					packetRecorder.record(p);
 					outputStream.write(new byte[p.getSize()]);
@@ -48,6 +57,10 @@ public class Tracker {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	private boolean iAm(Side side) {
+		return mySide == side;
 	}
 
 }
