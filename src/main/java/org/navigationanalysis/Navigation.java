@@ -1,9 +1,9 @@
 package org.navigationanalysis;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -15,7 +15,11 @@ public class Navigation {
 	private HashMap<String,Long> candidates = new HashMap<String, Long>();
 	
 	public Navigation() throws IOException {
-		BufferedReader reader = new WireSharkHelper().getCSVReader();	
+		this(System.getProperty("navigation-file") != null? System.getProperty("navigation-file"): "navigation.pcapng");
+				
+	}
+	public Navigation(String sourceFile) throws IOException{
+		BufferedReader reader = new WireSharkHelper(sourceFile).getCSVReader();	
 		ArrayList<Packet> tempPackets = new ArrayList<Packet>();
 		while(true){
 			String line = reader.readLine();
@@ -24,7 +28,7 @@ public class Navigation {
 			count(packet.getLocalIP(),packet.getRemoteIP());
 			if(packet.getSize() > 0)
 				tempPackets.add(packet);
-		}		
+		}
 		boolean passedInitialClientRequest = false;
 		String clientIP = findClientIP();
 		for (Packet p : tempPackets) {
@@ -62,24 +66,32 @@ public class Navigation {
 		return chosen.getKey();
 	}
 
-	public long[] getUploadBytesPerMinute(){
-		return getBytesPerSecond(true);
+	public long[] getUploadBytesPerInterval(){
+		return getBytesPerInterval(true);
 	}
 
-	public long[] getDownloadBytesPerMinute(){
-		return getBytesPerSecond(false);
+	public long[] getDownloadBytesPerInterval(){
+		return getBytesPerInterval(false);
 	}
 	
-	public long[] getBytesPerSecond(Boolean fromClient) {
-		Packet last = packets.get(packets.size()-1);
-		long[] upload = new long[(int) Math.ceil(last.getMinute())];		
+	public long[] getBytesPerInterval(Boolean fromClient) {
+		long[] upload = new long[(int) Math.ceil(getLast().getInterval(20))];		
 		for (Packet packet : packets) {
 			if(packet.isFromClient() == fromClient){
-				int index = (int) packet.getMinute();
+				int index = (int) packet.getInterval(20);
 				upload[index] += packet.getSize();	
 			}
 		}
 		return upload;
+	}
+
+	public Packet getLast() {
+		Packet last = packets.get(packets.size()-1);
+		return last;
+	}
+	public Date getDate() {
+		Packet first = packets.get(0);
+		return first.getDate();		
 	}
 
 }

@@ -10,15 +10,18 @@ public class WireSharkHelper {
 	private String sourceFile;
 	private File csv;
 
-	public WireSharkHelper() {
-		sourceFile = System.getProperty("navigation-file") != null? System.getProperty("navigation-file"): "navigation.pcapng";		
+	public WireSharkHelper(String sourceFile) {
+		if(!new File(sourceFile).exists())
+			throw new RuntimeException("Source file (pngcap) not found!");
+		this.sourceFile = sourceFile;		
 	}
 
 	private void createCSV() {
 		File destiny = new File("data/navigation.csv");
-		String command = "tshark -r ${fileName} -R tcp -T fields -e frame.number -e tcp.hdr_len -e tcp.len -e frame.time_relative -e ip.src -e ip.dst -e frame.len -e tcp.srcport -e tcp.dstport -E header=n -E separator=,";
-		command = command.replace("${fileName}", sourceFile);
-		ProcessBuilder builder = new ProcessBuilder(command.split(" "));
+		String command = "tshark -r ${fileName} -R tcp -T fields -e frame.number -e tcp.hdr_len -e tcp.len -e frame.time_relative -e ip.src -e ip.dst -e frame.len -e tcp.srcport -e tcp.dstport -e frame.time -E header=n -E separator=,";
+		String[] split = command.split(" ");
+		split[2] = split[2].replace("${fileName}", sourceFile);
+		ProcessBuilder builder = new ProcessBuilder(split);
 		builder.inheritIO();
 		builder.redirectOutput(destiny);
 		Process p;
