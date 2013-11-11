@@ -16,10 +16,9 @@ public class Navigation {
 	
 	public Navigation() throws IOException {
 		this(System.getProperty("navigation-file") != null? System.getProperty("navigation-file"): "navigation.pcapng");
-				
 	}
 	public Navigation(String sourceFile) throws IOException{
-		BufferedReader reader = new WireSharkHelper(sourceFile).getCSVReader();	
+		BufferedReader reader = new WiresharkHelper(sourceFile).getCSVReader();	
 		ArrayList<Packet> tempPackets = new ArrayList<Packet>();
 		while(true){
 			String line = reader.readLine();

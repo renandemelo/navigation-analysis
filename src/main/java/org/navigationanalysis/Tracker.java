@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class Tracker {
+public class Tracker implements Runnable{
 
 	private Side mySide;
 	private InputStream inputStream;
@@ -15,6 +15,7 @@ public class Tracker {
 	private PacketRecorder packetRecorder;
 	private Long initial;
 	private boolean realTime;
+	private Socket socket;
 
 	public Tracker(Side side, InputStream inputStream,
 			OutputStream outputStream, Navigation nav) {
@@ -26,7 +27,20 @@ public class Tracker {
 		realTime = System.getProperty("realTime") != null?Boolean.getBoolean(System.getProperty("realTime")): true;
 	}
 
+	
+	
 	public void track(Socket socket) {
+		this.socket = socket;
+		new Thread(this).start();
+	}
+
+	private boolean iAm(Side side) {
+		return mySide == side;
+	}
+
+
+
+	public void run() {
 		initial = System.currentTimeMillis();
 		try {
 			packetRecorder.init(socket);
@@ -53,13 +67,11 @@ public class Tracker {
 				}
 			}
 			packetRecorder.finish();
+			socket.close();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	private boolean iAm(Side side) {
-		return mySide == side;
+		
 	}
 
 }

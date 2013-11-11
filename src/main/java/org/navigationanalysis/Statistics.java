@@ -15,7 +15,7 @@ public class Statistics {
 	private List<String> sourceList = new ArrayList<String>();;
 
 	public Statistics() {
-		File baseDir = new File("/home/renan/Desktop/entrega-aps");
+		File baseDir = new File("/home/renan/Dropbox/usp/disciplinas/Redes/mininet/scripts/entrega-aps");
 		ArrayDeque<File> deque = new ArrayDeque<File>();
 		deque.add(baseDir);
 		while (!deque.isEmpty()) {

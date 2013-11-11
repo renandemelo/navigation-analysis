@@ -12,11 +12,12 @@ public class Server {
 	
 	public void run() throws Exception {
 		ServerSocket socket = new ServerSocket(2000);
+		System.out.println("Parsing navigation...");
+		Navigation nav = new Navigation();
 		for(int numeroClientes = 0; numeroClientes < totalClients; numeroClientes++){
-			Navigation nav = new Navigation();
+			System.out.println("Accepting new connection...");
 			Socket connectionSocket = socket.accept();
 			new Tracker(Side.SERVER,connectionSocket.getInputStream(),connectionSocket.getOutputStream(),nav).track(connectionSocket);
-			connectionSocket.close();
 		}
 		socket.close();
 	}
