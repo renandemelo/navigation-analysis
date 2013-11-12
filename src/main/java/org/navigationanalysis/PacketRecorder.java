@@ -24,8 +24,7 @@ public class PacketRecorder{
 			new File("data").mkdirs();
 			String filename = "data/"
 					+ socket.getLocalAddress().getHostAddress() + "-"
-					+ socket.getInetAddress().getHostAddress() + "-"
-					+ System.currentTimeMillis() + ".txt";
+					+ socket.getInetAddress().getHostAddress() + ".txt";
 			fileWriter = new FileWriter(filename);
 			writer = new BufferedWriter(fileWriter);
 			timer = new Timer();

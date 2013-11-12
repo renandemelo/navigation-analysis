@@ -38,34 +38,32 @@ public class Statistics {
 		recordStatistics();
 	}
 
-	private void recordStatistics() {
-		
-		System.out.println("Site\tStudent\tDate\tNavigation time\tUpload\tAverage\tStandard deviation\tTotal\tAverage\tStandard deviation");
+	private void recordStatistics() {		
+		System.out.println("Site\tStudent\tDate\tNavigation time\tUpload\tAverage\tStandard deviation\tDownload\tAverage\tStandard deviation\tFile");
 		for (String sourceFile : sourceList) {
 			try {
 				navigation = new Navigation(sourceFile);
-				long[] downloadPerMinute = navigation.getDownloadBytesPerInterval();
-				long[] uploadPerMinute = navigation.getUploadBytesPerInterval();
+				long[] downloadPerInterval = navigation.getDownloadBytesPerInterval();
+				long[] uploadPerInterval = navigation.getUploadBytesPerInterval();
 				
 				Date date = navigation.getDate();
 				String site = getSiteBy(sourceFile);
-				String student = getStudent(sourceFile);;
+				String student = getStudent(sourceFile);
 				double time = navigation.getLast().getInterval(1);
 				
-				BigDecimal upTotal = getSum(uploadPerMinute);
-				BigDecimal upAvg = getAverage(uploadPerMinute);
-				BigDecimal upSd = getStandardDeviation(uploadPerMinute);
-				BigDecimal downTotal = getSum(downloadPerMinute);
-				BigDecimal downAvg = getAverage(downloadPerMinute);
-				BigDecimal downSd = getStandardDeviation(downloadPerMinute);
-							
-				
+				BigDecimal upTotal = getSum(uploadPerInterval);
+				BigDecimal upAvg = getAverage(uploadPerInterval);
+				BigDecimal upSd = getStandardDeviation(uploadPerInterval);
+				BigDecimal downTotal = getSum(downloadPerInterval);
+				BigDecimal downAvg = getAverage(downloadPerInterval);
+				BigDecimal downSd = getStandardDeviation(downloadPerInterval);
+						
 				System.out.println(site + "\t" + student + "\t" + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date) + "\t" + time + "\t" + upTotal + "\t" + upAvg + "\t" + upSd+ "\t"  + downTotal + "\t" + downAvg + "\t" + downSd + "\t" + sourceFile);
 				
 				FileWriter writer = getDetailsFileFor(sourceFile);
 				writer.write("Interval\tDownload\tUpload\n");
-				for (int i = 0; i < downloadPerMinute.length; i++) {
-					writer.write(i+"\t" + downloadPerMinute[i] + "\t" + uploadPerMinute[i]+ "\n");
+				for (int i = 0; i < downloadPerInterval.length; i++) {
+					writer.write(i+"\t" + downloadPerInterval[i] + "\t" + uploadPerInterval[i]+ "\n");
 				}
 				writer.close();
 			} catch (IOException e) {
@@ -101,7 +99,7 @@ public class Statistics {
 	}
 
 	private FileWriter getDetailsFileFor(String sourceFile) throws IOException {
-		String detailsFile = sourceFile.split("\\.")[0] + ".csv";
+		String detailsFile = sourceFile.split("\\.")[0] + "-details.csv";
 		return new FileWriter(new File(detailsFile));
 	}
 
