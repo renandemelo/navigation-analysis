@@ -14,6 +14,7 @@ public class Analyzer {
 
 	public Analyzer() {
 		analysisDir = System.getProperty("analysis-dir") != null? System.getProperty("analysis-dir"): "experiments";
+		analysisDir = "/home/renan/Dropbox/usp/disciplinas/Redes/mininet/scripts/3";
 		///home/renan/Dropbox/usp/disciplinas/Redes/mininet/scripts/1
 		
 		numClientsArray = new int[]{1,5,10,15};		
@@ -28,13 +29,17 @@ public class Analyzer {
 	public void run() {
 		try {
 			Set<Entry<String, String>> entrySet = siteNavigations.entrySet();
+			
+			System.out.println("Site\tNumber of Clients\tAverage Send/Receive Delay\tTotal navigation time");
 			for (Entry<String, String> siteNavigation : entrySet) {
-				Navigation nav = new Navigation(siteNavigation.getValue());
+				Navigation nav = new Navigation("/home/renan/Dropbox/usp/disciplinas/Redes/mininet/scripts/" + siteNavigation.getValue());
 				for (int numClients : numClientsArray) {
 					String experimentId = siteNavigation.getKey() + "-" + numClients;
-					System.out.println(experimentId);
 					File experimentDirectory = new File(analysisDir + "/" + experimentId);
-					new ExperimentAnalyser(experimentDirectory,nav).analyze();
+					ExperimentAnalyser experimentAnalyser = new ExperimentAnalyser(experimentDirectory,nav);
+					Long delay = experimentAnalyser.getAverageDelay();
+					Long navigationTime = experimentAnalyser.getAverageNavigationTime();
+					System.out.println(siteNavigation.getKey() + "\t"+ numClients + "\t" + delay + "\t" + navigationTime);
 				}								
 			}
 		}

@@ -51,6 +51,7 @@ public class Tracker implements Runnable{
 					Long elapsedTime = System.currentTimeMillis() - initial;
 					Long timeDiff = p.getTime() - elapsedTime;
 					if(realTime &&  timeDiff > 0){
+						System.out.println("Waiting for " + timeDiff + " miliseconds");
 						try {Thread.sleep(timeDiff);} catch (InterruptedException e) {}
 					}
 					System.out.println("Sending packet " + p.getId() + " with "+ p.getSize() + " bytes");

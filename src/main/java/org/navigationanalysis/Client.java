@@ -16,7 +16,7 @@ public class Client {
 		System.out.println("Connecting to server...");
 		Socket clientSocket = new Socket(ip, 2000);
 		double navigationTimeInSeconds = navigation.getLast().getInterval(1);
-		double waitingTime = (Math.random() * navigationTimeInSeconds * 0.1); //Random until 10% of navigation time
+		double waitingTime = (Math.random() * navigationTimeInSeconds * 0.3); //Random until 10% of navigation time
 		System.out.println("Waiting ..." + waitingTime);
 		Thread.sleep((long)(waitingTime) * 1000);
 		System.out.println("Tracking navigation...");
