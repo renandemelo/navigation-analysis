@@ -7,8 +7,10 @@ public class Main {
 			new Server(Integer.valueOf(args[1])).run();
 		}else if(args[0].equals("Statistics")){
 			new Statistics().run();
-		}else{
+		}else if(args[0].equals("Client")){
 			new Client(args[1]).run();
+		}else{
+			new Analyzer().run();
 		}
 			
 	}
