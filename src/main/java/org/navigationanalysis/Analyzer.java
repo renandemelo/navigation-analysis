@@ -14,7 +14,7 @@ public class Analyzer {
 
 	public Analyzer() {
 		analysisDir = System.getProperty("analysis-dir") != null? System.getProperty("analysis-dir"): "experiments";
-		analysisDir = "/home/renan/Dropbox/usp/disciplinas/Redes/mininet/scripts/3";
+		analysisDir = "/home/renan/Dropbox/usp/disciplinas/Redes/mininet/scripts/4";
 		///home/renan/Dropbox/usp/disciplinas/Redes/mininet/scripts/1
 		
 		numClientsArray = new int[]{1,5,10,15};		

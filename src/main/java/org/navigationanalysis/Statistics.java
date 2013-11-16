@@ -39,7 +39,7 @@ public class Statistics {
 	}
 
 	private void recordStatistics() {		
-		System.out.println("Site\tStudent\tDate\tNavigation time\tUpload\tAverage\tStandard deviation\tDownload\tAverage\tStandard deviation\tFile");
+		System.out.println("Site\tStudent\tDate\tNavigation time\tUpload\tAverage\tStandard deviation\tCoefficient of variation\tDownload\tAverage\tStandard deviation\tCoefficient of variation\tFile");
 		for (String sourceFile : sourceList) {
 			try {
 				navigation = new Navigation(sourceFile);
@@ -54,11 +54,14 @@ public class Statistics {
 				BigDecimal upTotal = getSum(uploadPerInterval);
 				BigDecimal upAvg = getAverage(uploadPerInterval);
 				BigDecimal upSd = getStandardDeviation(uploadPerInterval);
+				BigDecimal upCoefOfVariation = getCoefficientOfVariation(uploadPerInterval);
+				
 				BigDecimal downTotal = getSum(downloadPerInterval);
 				BigDecimal downAvg = getAverage(downloadPerInterval);
 				BigDecimal downSd = getStandardDeviation(downloadPerInterval);
-						
-				System.out.println(site + "\t" + student + "\t" + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date) + "\t" + time + "\t" + upTotal + "\t" + upAvg + "\t" + upSd+ "\t"  + downTotal + "\t" + downAvg + "\t" + downSd + "\t" + sourceFile);
+				BigDecimal downCoefOfVariation = getCoefficientOfVariation(downloadPerInterval);
+				
+				System.out.println(site + "\t" + student + "\t" + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date) + "\t" + time + "\t" + upTotal + "\t" + upAvg + "\t" + upSd+ "\t" + upCoefOfVariation + "\t"  + downTotal + "\t" + downAvg + "\t" + downSd + "\t" + downCoefOfVariation + "\t" + sourceFile);
 				
 				FileWriter writer = getDetailsFileFor(sourceFile);
 				writer.write("Interval\tDownload\tUpload\n");
@@ -70,6 +73,10 @@ public class Statistics {
 				throw new RuntimeException(e);
 			}
 		}
+	}
+	
+	private BigDecimal getCoefficientOfVariation(long[] values) {
+		return getStandardDeviation(values).divide(getAverage(values),BigDecimal.ROUND_HALF_UP);
 	}
 
 	private String getStudent(String sourceFile) {
@@ -104,6 +111,11 @@ public class Statistics {
 	}
 
 	private BigDecimal getStandardDeviation(long[] values) {
+		double sd = Math.sqrt(getVariance(values).doubleValue());		
+		return new BigDecimal(sd);
+	}
+
+	private BigDecimal getVariance(long[] values) {
 		BigDecimal avg = getAverage(values);
 		BigDecimal diffs = new BigDecimal(0);
 		for (long v : values) {
@@ -115,9 +127,8 @@ public class Statistics {
 		BigDecimal divisor = n.subtract(BigDecimal.ONE);
 		if(divisor.equals(BigDecimal.ZERO))
 			divisor = BigDecimal.ONE;
-		double sd = Math.sqrt(diffs.divide(divisor,BigDecimal.ROUND_HALF_UP).doubleValue());
-		
-		return new BigDecimal(sd);
+		BigDecimal divide = diffs.divide(divisor,BigDecimal.ROUND_HALF_UP);
+		return divide;
 	}
 
 	private BigDecimal getAverage(long[] values) {
