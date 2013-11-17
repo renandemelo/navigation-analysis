@@ -1,4 +1,6 @@
-package org.navigationanalysis;
+package org.navigationanalysis.analyzer;
+
+import org.navigationanalysis.Packet;
 
 public class Registry {
 	

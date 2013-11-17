@@ -11,6 +11,10 @@ public class RecordedPacket {
 		this.time = Long.valueOf(split[1]);
 	}
 	
+	public String getId() {
+		return id;
+	}
+
 	public Long getTime() {
 		return time;
 	}

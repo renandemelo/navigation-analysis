@@ -1,4 +1,4 @@
-package org.navigationanalysis;
+package org.navigationanalysis.analyzer;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import org.navigationanalysis.Packet;
 
 public class PacketRecorder{
 

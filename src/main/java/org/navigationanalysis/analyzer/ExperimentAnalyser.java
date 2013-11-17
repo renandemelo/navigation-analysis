@@ -1,9 +1,14 @@
-package org.navigationanalysis;
+package org.navigationanalysis.analyzer;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import org.navigationanalysis.Pair;
+import org.navigationanalysis.Pairs;
+import org.navigationanalysis.RecordedPacket;
+import org.navigationanalysis.navigation.Navigation;
 
 public class ExperimentAnalyser {
 
@@ -15,7 +20,11 @@ public class ExperimentAnalyser {
 		this.nav = nav;
 	}
 
-	public Long getAverageDelay() throws IOException {
+	public Long getAverageUpDelay() throws IOException {
+		return getAvgDelay(true);
+	}
+
+	private Long getAvgDelay(boolean upload) throws FileNotFoundException, IOException {
 		long delayPerPair = 0L;
 		for (Pair p : pairs) {
 			BufferedReader[] fileReaders = p.getFileReaders();
@@ -29,8 +38,12 @@ public class ExperimentAnalyser {
 				RecordedPacket p1 = new RecordedPacket(line1);
 				RecordedPacket p2 = new RecordedPacket(line2);
 				long diff = Math.abs(p1.getTime() - p2.getTime());
-				delayPerPacket += diff;
-				packetLength++;
+				if(nav.isUpload(p1.getId()) == upload){
+					delayPerPacket += diff;
+					packetLength++;
+				}else{
+					continue;
+				}
 			}
 			delayPerPair+= delayPerPacket/packetLength;		
 			fileReaders[0].close();
@@ -38,6 +51,10 @@ public class ExperimentAnalyser {
 		}
 		long avgDelay = delayPerPair/pairs.size();
 		return avgDelay;
+	}
+	
+	public Long getAverageDownDelay() throws IOException {
+		return getAvgDelay(false);
 	}
 
 	public Long getAverageNavigationTime() throws IOException {

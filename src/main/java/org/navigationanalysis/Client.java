@@ -2,6 +2,8 @@ package org.navigationanalysis;
 
 import java.net.Socket;
 
+import org.navigationanalysis.navigation.Navigation;
+
 public class Client {
 
 	private String ip;

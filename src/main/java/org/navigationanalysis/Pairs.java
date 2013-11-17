@@ -7,6 +7,9 @@ public class Pairs extends HashSet<Pair>{
 
 	public Pairs(File experimentDirectory) {
 		for (File side : experimentDirectory.listFiles()) {
+			if(side.getAbsolutePath().contains("dump")){
+				continue;
+			}
 			String[] pathSplit = side.getAbsolutePath().split(File.separator);
 			String fileDesc = pathSplit[pathSplit.length-1].replace(".txt", "");
 			String[] split = fileDesc.split("-");

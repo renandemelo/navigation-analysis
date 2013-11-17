@@ -6,6 +6,9 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import org.navigationanalysis.analyzer.PacketRecorder;
+import org.navigationanalysis.navigation.Navigation;
+
 public class Tracker implements Runnable{
 
 	private Side mySide;

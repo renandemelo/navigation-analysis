@@ -1,5 +1,8 @@
 package org.navigationanalysis;
 
+import org.navigationanalysis.analyzer.Analyzer;
+import org.navigationanalysis.statistics.Statistics;
+
 public class Main {
 	
 	public static void main(String[] args) throws NumberFormatException, Exception {

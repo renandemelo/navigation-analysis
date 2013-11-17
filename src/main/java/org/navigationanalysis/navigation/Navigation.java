@@ -1,4 +1,4 @@
-package org.navigationanalysis;
+package org.navigationanalysis.navigation;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import org.navigationanalysis.Packet;
+import org.navigationanalysis.WiresharkHelper;
 
 public class Navigation {
 
@@ -91,6 +94,13 @@ public class Navigation {
 	public Date getDate() {
 		Packet first = packets.get(0);
 		return first.getDate();		
+	}
+	public boolean isUpload(String id) {
+		for (Packet p : packets) {
+			if(p.getId().equals(id))
+				return p.isFromClient();
+		}
+		throw new RuntimeException("Unrecognized packet!!!");
 	}
 
 }

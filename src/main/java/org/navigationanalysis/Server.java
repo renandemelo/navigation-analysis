@@ -3,6 +3,8 @@ package org.navigationanalysis;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.navigationanalysis.navigation.Navigation;
+
 public class Server {
 	private Integer totalClients;
 
