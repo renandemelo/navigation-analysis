@@ -70,15 +70,17 @@ def perfTest(navigation,qtde):
 	while("java" in running()):
 		print "Still running... "
 		time.sleep(4)
-	switch.cmdPrint('dpctl dump-ports tcp:' + switch.IP() + ':' + str(switch.listenPort)+ '> data/dump-ports.txt')	
+	switch.cmdPrint('dpctl dump-ports tcp:' + switch.IP() + ':' + str(switch.listenPort) + '> data/dump-ports.txt')	
 	print "Bye bye!"
 	net.stop()
 
+def prepareJava():
+	_exec('mvn clean install')
+
 if __name__ == '__main__':
 	setLogLevel('info')
+	prepareJava()
 	for site in sites.keys():
 		for i in num_clients:
 			experimentId = site + '-' + str(i)
-			#if experimentId in ['Kernel-1','Kernel-10','Kernel-15','Kernel-5','YouTube-1','YouTube-10','YouTube-5']:
-			#	continue
 			experiment(site,sites[site],i)
