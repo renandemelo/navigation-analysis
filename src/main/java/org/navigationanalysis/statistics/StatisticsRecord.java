@@ -61,7 +61,7 @@ public class StatisticsRecord {
 		writer.write("Interval,Upload,Download\n");
 		for (int i = 0; i < downloadPerInterval.length; i++) {
 			//,['08/10',6,0]
-			writer.write(",['" + (i * 20) + "'," + Kb(uploadPerInterval[i])+ "," + Kb(downloadPerInterval[i]) + "]\n");
+			writer.write(",['" + (i * 20) + "'," + KB(uploadPerInterval[i])+ "," + KB(downloadPerInterval[i]) + "]\n");
 		}
 		writer.close();		
 		
@@ -111,7 +111,7 @@ public String basicStatistics(){
 		return val.divide(new BigDecimal(1024),BigDecimal.ROUND_HALF_UP);
 	}
 	
-	private BigDecimal Kb(long l) {
+	private BigDecimal KB(long l) {
 		return Kb(new BigDecimal(l));
 	}
 
@@ -161,7 +161,7 @@ public String basicStatistics(){
 		for (long v : values) {
 			BigDecimal bd = new BigDecimal(v);
 			BigDecimal diff = bd.subtract(avg).pow(2);
-			diffs = diffs.add(diff.pow(2));
+			diffs = diffs.add(diff);
 		}
 		BigDecimal n = new BigDecimal(values.length);
 		BigDecimal divisor = n.subtract(BigDecimal.ONE);

@@ -1,0 +1,43 @@
+
+How to simulate a LAN using a wireshark file (pcapng)
+------------------------------------------------------
+
+
+Prerequisites:
+--------------
+- Install Mininet (We recommend the VirtualBox VM install!) - Instructions: http://mininet.org/walkthrough/
+- Install java - 
+- Install maven - 
+- Install git
+- 
+
+
+Download source code
+--------------------
+- Download this complete source code if you have not done it yet: git clone  
+
+
+
+Configure your navigations:
+---------------------------
+- Define an ID for each navigation and the numbers of simultaneos clients that you want to simulate in the file 'config.py'. 
+In this file you need to configure a python dictionary named 'sites' having a navigation ID as a key and a wireshark file as a value. The number of clients
+for each experiment need to be configured in an array named 'num_clients'. An example of a configured file is described as following:
+
+	sites = {
+		'Kernel':'entrega-aps/eduardo/Kernel/kernel3.pcapng',
+		'Facebook':'entrega-aps/eduardo/Facebook/facebook1.pcapng',
+		'Terra':'entrega-aps/daniel/WireShark/Terra250913-0004/Terra250913-0004.pcapng',
+		'YouTube':'entrega-aps/willian/wireshark/dia25.09/Youtube25.09/Youtube25.09.pcapng'
+	}
+
+	num_clients = [1,5,10,15]
+
+
+
+Running the simulation
+----------------------
+- To run the simulation execute the following command:
+	sudo python run-simulation.py
+
+
