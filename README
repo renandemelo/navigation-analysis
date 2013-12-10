@@ -3,26 +3,23 @@ How to simulate a LAN using a wireshark file (pcapng)
 ------------------------------------------------------
 
 
-Prerequisites:
+Instalation:
 --------------
-- Install Mininet (We recommend the VirtualBox VM install!) - Instructions: http://mininet.org/walkthrough/
-- Install java - 
-- Install maven - 
-- Install git
-- 
-
-
-Download source code
---------------------
-- Download this complete source code if you have not done it yet: git clone  
+- Install Mininet (We recommend the Ubuntu VirtualBox VM install!) - Instructions: http://mininet.org/walkthrough/
+- Update ubuntu packages in your vm: sudo apt-get update
+- Install java and maven2: sudo apt-get install maven2
+- Install git - sudo apt-get install git
+- Download this complete source code if you have not done it yet: git clone https://github.com/renandemelo/navigation-analysis.git
 
 
 
-Configure your navigations:
+Prepare simulation:
 ---------------------------
-- Define an ID for each navigation and the numbers of simultaneos clients that you want to simulate in the file 'config.py'. 
-In this file you need to configure a python dictionary named 'sites' having a navigation ID as a key and a wireshark file as a value. The number of clients
-for each experiment need to be configured in an array named 'num_clients'. An example of a configured file is described as following:
+- Copy your Wireshark files to your VM (if you are using a VM). SCP might be the easiest way of doing it.
+- In the main folder (navigation-analysis), define an ID for each navigation and the numbers of simultaneous clients that you want to simulate in the file 'config.py'. 
+In this file you need to configure a python dictionary named 'sites' having a navigation ID as a key and a wireshark file as a value. 
+The number of clients for each experiment need to be configured in an array named 'num_clients'. 
+An example of a configured file is described as following:
 
 	sites = {
 		'Kernel':'entrega-aps/eduardo/Kernel/kernel3.pcapng',
@@ -35,9 +32,11 @@ for each experiment need to be configured in an array named 'num_clients'. An ex
 
 
 
-Running the simulation
+Running the simulation:
 ----------------------
 - To run the simulation execute the following command:
 	sudo python run-simulation.py
 
+Explanation: This step will recompile Java source code and run a simulation of each navigation with each number of clients, as defined in the config.py file
+(Compilation might take a few more minutes the first time)
 

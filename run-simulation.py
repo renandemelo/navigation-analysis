@@ -39,6 +39,8 @@ def _exec(cmd):
 	ps.wait()
 
 def experiment(site,navigation,qtde_clients):
+	if not os.path.exists('data'):
+    		os.makedirs('data')
 	directory = 'experiments/' + site + '-' + str(qtde_clients)
 	print 'Executing test for: ' + directory
 	_exec('rm -rf data/*')
