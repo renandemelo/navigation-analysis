@@ -62,11 +62,11 @@ def perfTest(navigation,qtde):
 	server = net.get('server')
 	print "server ip:" + server.IP()
 	
-	server.cmd( 'java -jar "-Dnavigation-file=%s" navigation-analysis.jar Server' % navigation,qtde,'>','/dev/null','&')
+	server.cmd( 'java -jar "-Dnavigation-file=%s" target/navigation-analysis.jar Server' % navigation,qtde,'>','/dev/null','&')
 	time.sleep(5)
 	for c in range(qtde):
 		client = net.getNodeByName('client%s' % (c+1))
-		client.cmd('java -jar "-Dnavigation-file=%s" navigation-analysis.jar Client' % navigation,server.IP(),'>', '/dev/null','&')#'>','client%s.txt' % (c+1),
+		client.cmd('java -jar "-Dnavigation-file=%s" target/navigation-analysis.jar Client' % navigation,server.IP(),'>', '/dev/null','&')#'>','client%s.txt' % (c+1),
 
 	switch = net.get('switch1')
 	while("java" in running()):
