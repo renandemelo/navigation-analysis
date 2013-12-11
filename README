@@ -43,6 +43,6 @@ Running the simulation:
 
 Checking and analysing results:
 -------------------------------
-- 
-
-
+- Results will be available at 'experiments' directory, having one subdirectory for each experiment run with navigation ID + simultaneous clients (ie. Youtube-10).
+- In each subdirectory, all data chunks send and receive timestamps will be available in a text file, one per connection. Each connection is represented by the name {IP-local}-{IP-remote}.txt
+- Based on the timestamps, it is possible to compare send and receive delay of data chunks.
