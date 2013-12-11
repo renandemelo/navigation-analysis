@@ -41,7 +41,7 @@ Running the simulation:
 
 - This command will run a simulation of each navigation with each specified number of clients, as defined in the config.py file.
 
-Checking and analysing results:
+Checking and analyzing results:
 -------------------------------
 - Results will be available at 'experiments' directory, having one subdirectory for each experiment run with navigation ID + simultaneous clients (ie. Youtube-10).
 - In each subdirectory, all data chunks send and receive timestamps will be available in a text file, one per connection. Each connection is represented by the name {IP-local}-{IP-remote}.txt
