@@ -7,7 +7,8 @@ Instalation:
 --------------
 - Install Mininet (We highly recommend the Ubuntu VirtualBox VM install!) - Instructions: http://mininet.org/walkthrough/
 - Update Ubuntu packages in your vm: sudo apt-get update
-- Install java and maven2 packages: sudo apt-get install maven2
+- Install java package: sudo apt-get install openjdk-7-jdk
+- Install maven2 package: sudo apt-get install maven2
 - Install git - sudo apt-get install git
 - Download this complete source code if you have not done it yet: git clone https://github.com/renandemelo/navigation-analysis.git
 
@@ -16,7 +17,7 @@ Instalation:
 Prepare simulation:
 ---------------------------
 - Copy your Wireshark files to your VM (if you are using a VM). SCP might be the easiest way of doing it.
-- Compile the Java code using the following command (it might take a few minutes) inside the navigation-analysis directory: mvn clean install
+- Download dependencies and compile Java code by using in the navigation-analysis directory the following command : mvn clean install (it might take a few minutes)
 - In the main folder (navigation-analysis), define an ID for each navigation and the numbers of simultaneous clients that you want to simulate in the file 'config.py'. 
 In this file you need to configure a python dictionary named 'sites' having a navigation ID as a key and a wireshark file as a value.
 The number of clients for each experiment need to be configured in an array named 'num_clients'. 

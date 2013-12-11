@@ -43,6 +43,7 @@ def experiment(site,navigation,qtde_clients):
     		os.makedirs('data')
 	directory = 'experiments/' + site + '-' + str(qtde_clients)
 	print 'Executing test for: ' + directory
+	print 'Navigation file:' + navigation
 	_exec('rm -rf data/*')
 	_exec('rm -rf /tmp/*')
 	perfTest(navigation,qtde_clients)
