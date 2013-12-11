@@ -12,7 +12,7 @@ public class WiresharkHelper {
 
 	public WiresharkHelper(String sourceFile) {
 		if(!new File(sourceFile).exists())
-			throw new RuntimeException("Source file (pngcap) not found!");
+			throw new RuntimeException("Source file (pngcap) not found! " + sourceFile);
 		this.sourceFile = sourceFile;		
 	}
 
