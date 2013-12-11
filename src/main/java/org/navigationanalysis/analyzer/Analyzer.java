@@ -16,16 +16,21 @@ public class Analyzer {
 
 	public Analyzer() {
 		analysisDir = System.getProperty("analysis-dir") != null? System.getProperty("analysis-dir"): "experiments";
-		analysisDir = "/home/renan/Dropbox/usp/disciplinas/Redes/mininet/scripts/5";
-		///home/renan/Dropbox/usp/disciplinas/Redes/mininet/scripts/1
+		String[] numClientsString = System.getProperty("num_clients").split(",");
+		String[] navigations = System.getProperty("navigations").split(",");
 		
-		numClientsArray = new int[]{1,5,10,15};		
+		numClientsArray = new int[numClientsString.length];
+		for (int i = 0; i < numClientsString.length; i++) {
+			numClientsArray[i] = Integer.valueOf(i);
+		}
+		
 		siteNavigations = new HashMap<String, String>();
-		siteNavigations.put("Facebook", "entrega-aps/eduardo/Facebook/facebook1.pcapng");
-		siteNavigations.put("Kernel", "entrega-aps/eduardo/Kernel/kernel3.pcapng");
-		siteNavigations.put("Terra", "entrega-aps/daniel/WireShark/Terra250913-0004/Terra250913-0004.pcapng");
-		siteNavigations.put("YouTube", "entrega-aps/willian/wireshark/dia25.09/Youtube25.09/Youtube25.09.pcapng");
-				
+		for (String nav : navigations) {
+			String[] navSplit = nav.split(":");
+			siteNavigations.put(navSplit[0],navSplit[1]);
+		}
+		
+		///home/renan/Dropbox/usp/disciplinas/Redes/mininet/scripts/1
 	}
 	
 	public void run() {
