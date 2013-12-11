@@ -21,6 +21,6 @@ if __name__ == '__main__':
 		nums += str(i) + ','
 	nums = nums[:-1]
 
-	command = 'Command: java -jar "-Dnavigations=%s -Dnum_clients=%s" target/navigation-analysis.jar Analysis' % (navigations,nums)
+	command = 'java -jar "-Dnavigations=%s -Dnum_clients=%s" target/navigation-analysis.jar Analysis' % (navigations,nums)
 	print command
 	_exec(command)
