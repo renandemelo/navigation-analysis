@@ -76,12 +76,8 @@ def perfTest(navigation,qtde):
 	print "Bye bye!"
 	net.stop()
 
-def prepareJava():
-	_exec('mvn clean install')
-
 if __name__ == '__main__':
 	setLogLevel('info')
-	prepareJava()
 	for site in sites.keys():
 		for i in num_clients:
 			experimentId = site + '-' + str(i)

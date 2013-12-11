@@ -16,8 +16,9 @@ Instalation:
 Prepare simulation:
 ---------------------------
 - Copy your Wireshark files to your VM (if you are using a VM). SCP might be the easiest way of doing it.
+- Compile the Java code using the following command (it might take a few minutes): mvn clean install
 - In the main folder (navigation-analysis), define an ID for each navigation and the numbers of simultaneous clients that you want to simulate in the file 'config.py'. 
-In this file you need to configure a python dictionary named 'sites' having a navigation ID as a key and a wireshark file as a value. 
+In this file you need to configure a python dictionary named 'sites' having a navigation ID as a key and a wireshark file as a value.
 The number of clients for each experiment need to be configured in an array named 'num_clients'. 
 An example of a configured file is described as following:
 
@@ -37,6 +38,10 @@ Running the simulation:
 - To run the simulation execute the following command:
 	sudo python run-simulation.py
 
-Explanation: This step will recompile Java source code and run a simulation of each navigation with each number of clients, as defined in the config.py file
-(Compilation might take a few more minutes the first time)
+- This command will run a simulation of each navigation with each specified number of clients, as defined in the config.py file.
+
+Checking and analysing results:
+-------------------------------
+- 
+
 
