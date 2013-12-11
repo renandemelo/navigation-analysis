@@ -39,7 +39,7 @@ public class Analyzer {
 			
 			System.out.println("Site\tNumber of Clients\tUpload Delay\tDownload Delay");
 			for (Entry<String, String> siteNavigation : entrySet) {
-				Navigation nav = new Navigation("/home/renan/Dropbox/usp/disciplinas/Redes/mininet/scripts/" + siteNavigation.getValue());
+				Navigation nav = new Navigation(siteNavigation.getValue());
 				for (int numClients : numClientsArray) {
 					String experimentId = siteNavigation.getKey() + "-" + numClients;
 					File experimentDirectory = new File(analysisDir + "/" + experimentId);
