@@ -39,10 +39,37 @@ Running the simulation:
 - To run the simulation execute the following command:
 	sudo python run-simulation.py
 
-- This command will run a simulation of each navigation with each specified number of clients, as defined in the config.py file.
+- This command will run a simulation of each navigation with each specified number of clients, as defined in the config.py file. 
+- Each simulation will replicate traffic based on data chunks sent/received to the server, using the same data chunk size and relative time to as collected in the wireshark file.
 
 Checking and analyzing results:
 -------------------------------
 - Results will be available at 'experiments' directory, having one subdirectory for each experiment run with navigation ID + simultaneous clients (ie. Youtube-10).
 - In each subdirectory, all data chunks send and receive timestamps will be available in a text file, one per connection. Each connection is represented by the name {IP-local}-{IP-remote}.txt
 - Based on the timestamps, it is possible to compare send and receive delay of data chunks.
+
+
+Collecting average delay automatically
+--------------------------------------
+- After a successful execution of 'run-simulation.py', it is possible to analyze average delay values automatically
+- For doing that, just execute the command: python run-analysis.py
+- As a result, the script will print average delay values for upload an download data chunks for each experiment, separated by a "Tab". 
+Example:
+
+Site	Number of Clients	Upload Delay	Download Delay
+Terra	1	439	880
+Terra	5	438	932
+Kernel	1	392	635
+Kernel	5	463	529
+Facebook	1	448	1032
+Facebook	5	445	1079
+YouTube	1	626	1285
+YouTube	5	606	1352
+
+
+
+
+
+
+
+
