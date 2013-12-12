@@ -22,5 +22,5 @@ if __name__ == '__main__':
 	nums = nums[:-1]
 
 	command = 'java -Dnavigations=%s -Dnum_clients=%s -jar target/navigation-analysis.jar Analysis' % (navigations,nums)
-	print command
+	#print command
 	_exec(command)
