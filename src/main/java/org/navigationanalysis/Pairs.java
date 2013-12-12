@@ -6,6 +6,8 @@ import java.util.HashSet;
 public class Pairs extends HashSet<Pair>{
 
 	public Pairs(File experimentDirectory) {
+		if(!experimentDirectory.exists())
+			throw new RuntimeException("Experiment Directory does not exist! " + experimentDirectory);
 		for (File side : experimentDirectory.listFiles()) {
 			if(side.getAbsolutePath().contains("dump")){
 				continue;
