@@ -21,7 +21,7 @@ public class Analyzer {
 		
 		numClientsArray = new int[numClientsString.length];
 		for (int i = 0; i < numClientsString.length; i++) {
-			numClientsArray[i] = Integer.valueOf(i);
+			numClientsArray[i] = Integer.valueOf(numClientsString[i]);
 		}
 		
 		siteNavigations = new HashMap<String, String>();
