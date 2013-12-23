@@ -1,6 +1,6 @@
 About Wireshark Traces
 ------------------------
 
-We used in for our experiments a few navigations provided by students. 
-If you want access to these navigations wireshark traces, for research purposes or even to reproduce the experiment and collect your own results, 
-please send me an e-mail: renandemelo@gmail.com. We can discuss how to send the files to you.
+To perform an experiment, we used a few navigation wireshark traces provided by students. 
+
+These traces are available at: https://www.dropbox.com/sh/2hld8oy1a7w3zb2/9taOAQt8hl
