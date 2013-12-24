@@ -67,6 +67,15 @@ YouTube	1	626	1285
 YouTube	5	606	1352
 
 
+Reproducing the experiments described in the paper
+--------------------------------------------------
+
+To perform the experiment described in the paper, we used a few navigation wireshark traces provided by students.
+These traces are available at: https://www.dropbox.com/sh/2hld8oy1a7w3zb2/9taOAQt8hl
+
+To reproduce the experiment, you only have to:
+- download and extract the zip file. 
+- perform configuration in 'config.py' as described in the previous steps.
 
 
 

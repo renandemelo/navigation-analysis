@@ -1,6 +1,0 @@
-About Wireshark Traces
-------------------------
-
-To perform an experiment, we used a few navigation wireshark traces provided by students. 
-
-These traces are available at: https://www.dropbox.com/sh/2hld8oy1a7w3zb2/9taOAQt8hl
